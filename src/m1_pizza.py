@@ -449,7 +449,7 @@ def polygon(window, circle, number_of_segments, color, thickness):
 def run_test_fancy_polygon():
     """ Tests the   fancy_polygon   function. """
     # -------------------------------------------------------------------------
-    # TODO: 9. Implement this TEST function.
+    # DONE: 9. Implement this TEST function.
     #   It TESTS the   fancy_polygon   function defined below.
     #   Include at least ** 1 ** ADDITIONAL test (that YOU write).
     #
@@ -503,8 +503,9 @@ def run_test_fancy_polygon():
     window2 = rg.RoseWindow(480, 350, title)
 
     circle = rg.Circle(rg.Point(240, 165), 150)
-    circle.fill_color = 'blue'
-    fancy_polygon(window2, circle, 20, 7, 'lime green', 5)
+    circle.fill_color = 'yellow'
+
+    fancy_polygon(window2, circle, 50, 21, 'orange', 1)
     window2.close_on_mouse_click()
 
 def fancy_polygon(window, circle, number_of_lines, hops_to_next_point, color,
@@ -566,7 +567,7 @@ def fancy_polygon(window, circle, number_of_lines, hops_to_next_point, color,
       :type thickness:       int
     """
     # -------------------------------------------------------------------------
-    # TODO: 10. Implement and test this function.
+    # DONE: 10. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     #
     # IMPLEMENTATION REQUIREMENT:
@@ -582,9 +583,23 @@ def fancy_polygon(window, circle, number_of_lines, hops_to_next_point, color,
 
     circle.attach_to(window)
     points = generate_points_on_circle(circle, number_of_lines)
-    print(points)
 
+    dummy_vec = []
+    for k in range(number_of_lines):
+        for j in range(len(points)):
+            dummy_vec = dummy_vec + [j]
 
+    real_vec = []
+    for i in range(len(points)+1):
+        real_vec = real_vec + [dummy_vec[i * hops_to_next_point]]
+
+    print(real_vec)
+
+    for k in range(number_of_lines):
+        line = rg.Line(points[real_vec[k]],points[real_vec[k+1]])
+        line.color = color
+        line.thickness = thickness
+        line.attach_to(window)
 
     window.render()
 
